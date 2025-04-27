@@ -15,7 +15,7 @@ export const AccountsView: Component = () => {
         }
     }
 
-    return <div>
+    return <div class="border border-border rounded-lg p-4">
         <h2>Your Accounts</h2>
         <Show when={!accounts.loading}>
             <Table<Account>
