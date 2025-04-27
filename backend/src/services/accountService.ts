@@ -1,12 +1,12 @@
 import type { Account } from "../models/account.js";
 
-const testAccount: Account = { id: 1, balance: 100, owner: "test" }
+const testAccount: Account = { id: 1, balance: 100, owner: "test", transactionLog: [] }
 let accounts: Record<number, Account> = [testAccount];
 let nextId = Object.values(accounts).length + 1;
 
 export function createAccount(owner: string, initialBalance: number): Account {
     const id = nextId++;
-    const account: Account = { id: id, owner: owner, balance: initialBalance };
+    const account: Account = { id: id, owner: owner, balance: initialBalance, transactionLog: [] };
     accounts[id] = account;
     return account;
 }
@@ -15,6 +15,17 @@ export function listAccounts(): Account[] {
     return Object.values(accounts);
 }
 
+/**
+ * Tranfers funds between accounts by modifying values directly
+ * Checks if provided account ids are valid
+ * Checks if account has sufficient balance before transfering funds
+ * 
+ * Needs better security measures to make sure that the user is owner of accounts.
+ * @param user 
+ * @param fromId 
+ * @param toId 
+ * @param amount 
+ */
 export function transferFunds(user: string, fromId: number, toId: number, amount: number): void {
     const from = accounts[fromId];
     const to = accounts[toId];
@@ -31,4 +42,7 @@ export function transferFunds(user: string, fromId: number, toId: number, amount
 
     from.balance -= amount;
     to.balance += amount;
+
+    from.transactionLog.push({ toId, amount: -amount })
+    to.transactionLog.push({ toId, amount: amount })
 }
