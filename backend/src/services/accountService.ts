@@ -8,6 +8,8 @@ export function createAccount(owner: string, initialBalance: number): Account {
     const id = nextId++;
     const account: Account = { id: id, owner: owner, balance: initialBalance, transactionLog: [] };
     accounts[id] = account;
+
+    console.log(`Creating account: id: ${id}, owner: ${owner}, initialBalance: ${initialBalance}`);
     return account;
 }
 
@@ -27,6 +29,7 @@ export function listAccounts(): Account[] {
  * @param amount 
  */
 export function transferFunds(fromId: number, toId: number, amount: number): void {
+
     const from = accounts[fromId];
     const to = accounts[toId];
 
@@ -42,4 +45,6 @@ export function transferFunds(fromId: number, toId: number, amount: number): voi
 
     from.transactionLog.push({ toId, amount: -amount })
     to.transactionLog.push({ toId, amount: amount })
+
+    console.log(`Transferred funds from account: ${fromId}, to account: ${toId}, amount: ${amount}`);
 }

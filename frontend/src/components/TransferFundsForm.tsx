@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { TextField, TextFieldInput, TextFieldLabel } from "./solid-ui/text-field";
 import { showToast } from "./solid-ui/toast";
 
+// Controls state for TransferFundsForm
 const [tranferFundsFormState, setTranferFundsFormState] = createStore<{ account?: Account, isOpen: boolean }>({ isOpen: false });
 
 export function openTransferFundsForm(account: Account) {
