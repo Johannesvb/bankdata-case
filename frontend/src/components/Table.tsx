@@ -7,7 +7,7 @@ import {
     TableHead,
     TableHeader,
     TableRow
-} from "./ui/table"
+} from "./solid-ui/table"
 
 export type TableProps<T> = {
     columns: TableColumn<T>[],
@@ -21,6 +21,11 @@ export type TableColumn<T> = {
     render?: (rowData: T) => JSX.Element,
 }
 
+/**
+ * Data table that makes it easy to display and handle typed data
+ * Use key to show the data value in the cell
+ * Or use the render function for complete control over what to display in table cell
+ */
 export const Table = <T,>(props: TableProps<T>): JSX.Element => {
     return <SolidUiTable>
         <TableCaption>{props.caption}</TableCaption>
@@ -37,6 +42,7 @@ export const Table = <T,>(props: TableProps<T>): JSX.Element => {
                 return <TableRow>
                     <For each={props.columns}>{(column) => {
 
+                        // Determine cell content from render or key prop
                         let cellContent: string | JSXElement = "";
                         if (column.render) {
                             cellContent = column.render(row);

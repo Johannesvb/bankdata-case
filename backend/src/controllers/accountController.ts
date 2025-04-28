@@ -1,4 +1,4 @@
-import { Request, RequestHandler, Response } from "express";
+import { Request, Response } from "express";
 import { createAccount, listAccounts, transferFunds } from "../services/accountService.js";
 
 export function createAccountHandler(req: Request, res: Response) {
@@ -18,9 +18,9 @@ export function listAccountsHandler(req: Request, res: Response) {
 }
 
 export function transferFundsHandler(req: Request, res: Response) {
-    const { user, fromAccountId, toAccountId, amount } = req.body;
+    const { fromAccountId, toAccountId, amount } = req.body;
     try {
-        transferFunds(user, fromAccountId, toAccountId, amount);
+        transferFunds( fromAccountId, toAccountId, amount);
         res.json({ success: true });
     } catch (error: any) {
         res.status(400).json({ error: error.message });

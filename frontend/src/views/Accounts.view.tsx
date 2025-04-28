@@ -1,10 +1,11 @@
 import { Component, createResource, Show } from "solid-js";
 import { CreateAccountForm } from "../components/CreateAccountForm";
 import { Table } from "../components/Table";
+import { openTransferFundsForm, TransferFundsForm } from "../components/TransferFundsForm";
 import { Account } from "../types/account";
 
 export const AccountsView: Component = () => {
-    const [accounts, { refetch }] = createResource<Account[]>(fetchAccounts)
+    const [accounts, { refetch }] = createResource<Account[]>(fetchAccounts);
 
     async function fetchAccounts() {
         try {
@@ -31,12 +32,22 @@ export const AccountsView: Component = () => {
                     {
                         header: "Balance",
                         key: "balance"
+                    },
+                    {
+                        header: "",
+                        key: undefined,
+                        render: (account) => <button class="underline text-xs"
+                            onClick={() => { openTransferFundsForm(account) }}
+                        >
+                            Transfer funds
+                        </button>
                     }
                 ]}
                 data={accounts() ?? []}
             />
         </Show>
 
-        <CreateAccountForm onAccountCreated={() => refetch()} />
+        <CreateAccountForm onAccountCreated={refetch} />
+        <TransferFundsForm onClose={refetch} />
     </div>;
 };

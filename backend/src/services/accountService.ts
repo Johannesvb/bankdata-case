@@ -20,19 +20,16 @@ export function listAccounts(): Account[] {
  * Checks if provided account ids are valid
  * Checks if account has sufficient balance before transfering funds
  * 
- * Needs better security measures to make sure that the user is owner of accounts.
- * @param user 
+ * Lacks security measures to make sure that the user is owner of accounts.
+ * 
  * @param fromId 
  * @param toId 
  * @param amount 
  */
-export function transferFunds(user: string, fromId: number, toId: number, amount: number): void {
+export function transferFunds(fromId: number, toId: number, amount: number): void {
     const from = accounts[fromId];
     const to = accounts[toId];
 
-    if (from.owner !== user) {
-        throw new Error("User does not have permission to transfer from account")
-    }
     if (!from || !to) {
         throw new Error("Account not found");
     }
