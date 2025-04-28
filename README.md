@@ -21,6 +21,8 @@ The frontend allows users to:
 - View a list of accounts in a table view
 - Perform fund transfers between accounts
 
+The frontend includes solid-ui components that i have not written. 
+
 ### Error handling:
 Errors are handled in the backend and displayed clearly in the frontend. Input validation is also included in the frontend to provide effective feedback for users.
 
